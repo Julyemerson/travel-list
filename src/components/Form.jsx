@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { initialItems } from "../data/data";
 
-export default function Form() {
+export default function Form({ onAddItem }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [initialItems, setInitialItems] = useState(initialItems);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -17,7 +15,7 @@ export default function Form() {
       packed: false,
     };
 
-    //setInitialItems([...initialItems, newItem]);
+    onAddItem(newItem);
 
     setDescription("");
     setQuantity(1);
@@ -25,7 +23,7 @@ export default function Form() {
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
-      <h3>What do you need for your 😍 trip</h3>
+      <h3>What do you need for your trip</h3>
       <select value={quantity} onChange={(e) => setQuantity(e.target.value)}>
         {Array.from({ length: 10 }, (_, index) => index + 1).map((num) => (
           <option value={num} key={num}>
